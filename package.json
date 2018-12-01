@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "adventofcode2018",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/lodash": "^4.14.87",
+    "@types/node": "^8.0.54",
+    "eslint": "^5.9.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
+}
