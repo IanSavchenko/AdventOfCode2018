@@ -1,8 +1,9 @@
 let _ = require('lodash');
 let fs = require('fs');
+let util = require('../util');
 
 // INPUT PROCESSING
-let data = fs.readFileSync('input.txt', 'utf8');
+let data = fs.readFileSync(__dirname + '/input.txt', 'utf8');
 let _input = data.split('\n').map(val => Number(val));
 
 // PART 1

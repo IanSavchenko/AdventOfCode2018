@@ -5,7 +5,8 @@
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaVersion": 2017
     },
     "rules": {
         "indent": [
@@ -25,7 +26,7 @@
         "no-unused-vars": [
             "error", { 
             "argsIgnorePattern": "^_.+",
-            "varsIgnorePattern": "^_.*"
+            "varsIgnorePattern": "(^_.*)|(^util$)"
         }]
     }
 }

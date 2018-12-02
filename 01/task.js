@@ -1,7 +1,7 @@
 let _ = require('lodash');
 let fs = require('fs');
 
-let data = fs.readFileSync('input.txt', 'utf8');
+let data = fs.readFileSync(__dirname + '/input.txt', 'utf8');
 let input = data.split('\n').map(val => Number(val));
 
 let part1 = _.sum(input);

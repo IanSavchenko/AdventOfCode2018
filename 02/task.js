@@ -1,8 +1,9 @@
 let _ = require('lodash');
 let fs = require('fs');
+let util = require('../util');
 
 // INPUT PROCESSING
-let data = fs.readFileSync('input.txt', 'utf8');
+let data = fs.readFileSync(__dirname + '/input.txt', 'utf8');
 let input = data.split('\n');
 
 // PART 1
@@ -40,14 +41,10 @@ console.log(`Part 1: ${part1}`);
 // PART 2
 let part2;
 
-let removeChar = function(str, pos) {
-  return str.slice(0, pos) + str.slice(pos + 1);
-};
-
 let perms = new Set();
 input.forEach((st) => {
   for (let pos = 0; pos < st.length; pos++) {
-    let s = removeChar(st, pos);
+    let s = util.removeChar(st, pos);
     if (perms.has(s + pos)) {
       part2 = s;
       return;
