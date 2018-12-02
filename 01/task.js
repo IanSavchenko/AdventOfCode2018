@@ -11,8 +11,8 @@ let seen = {};
 let sum = 0;
 let i = 0;
 while (!(sum in seen)) {
-    seen[sum] = true;
-    sum += input[i++ % input.length];
+  seen[sum] = true;
+  sum += input[i++ % input.length];
 }
 
 console.log(`Part 2: ${sum}`);

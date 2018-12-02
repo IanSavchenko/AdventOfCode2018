@@ -12,25 +12,25 @@ let two = 0;
 let three = 0;
 
 input.forEach(st => {
-    let chars = st.split('');
-    let cnt = {};
+  let chars = st.split('');
+  let cnt = {};
 
-    chars.forEach(ch => {
-        if (!cnt[ch]) {
-            cnt[ch] = 1;
-            return;
-        } 
+  chars.forEach(ch => {
+    if (!cnt[ch]) {
+      cnt[ch] = 1;
+      return;
+    } 
 
-        cnt[ch]++;
-    });
+    cnt[ch]++;
+  });
 
-    if (_.some(cnt, val => val === 2)) {
-        two++;
-    }
+  if (_.some(cnt, val => val === 2)) {
+    two++;
+  }
 
-    if (_.some(cnt, val => val === 3)) {
-        three++;
-    }
+  if (_.some(cnt, val => val === 3)) {
+    three++;
+  }
 });
 
 part1 = two*three;
@@ -41,20 +41,20 @@ console.log(`Part 1: ${part1}`);
 let part2;
 
 let removeChar = function(str, pos) {
-    return str.slice(0, pos) + str.slice(pos + 1);
+  return str.slice(0, pos) + str.slice(pos + 1);
 };
 
 let perms = new Set();
 input.forEach((st) => {
-    for (let pos = 0; pos < st.length; pos++) {
-        let s = removeChar(st, pos);
-        if (perms.has(s + pos)) {
-            part2 = s;
-            return;
-        }
-
-        perms.add(s + pos);
+  for (let pos = 0; pos < st.length; pos++) {
+    let s = removeChar(st, pos);
+    if (perms.has(s + pos)) {
+      part2 = s;
+      return;
     }
+
+    perms.add(s + pos);
+  }
 });
 
 console.log(`Part 2: ${part2}`);
