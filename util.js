@@ -62,10 +62,19 @@ module.exports = {
 };
 
 // consider adding
-let _arr2dRotate = function(arr) {
-  let output = arr2dInit(arr.length, arr[0].length);
+let _arr2dRotateRight = function(arr) {
+  let output = arr2dInit(arr[0].length, arr.length);
   arr2dForEach(arr, function(val, i, j) {
-    output[i][j] = arr[arr.length - j - 1][i];
+    output[j][arr.length - i - 1] = val;
+  });
+
+  return output;
+};
+
+let _arr2dRotateLeft = function(arr) {
+  let output = arr2dInit(arr[0].length, arr.length);
+  arr2dForEach(arr, function(val, i, j) {
+    output[arr[0].length - j - 1][i] = val;
   });
 
   return output;
@@ -74,7 +83,7 @@ let _arr2dRotate = function(arr) {
 let _arr2dFlipV = function(arr) {
   let output = arr2dInit(arr.length, arr[0].length);
   arr2dForEach(arr, function(val, i, j) {
-    output[i][j] = arr[i][arr.length - j - 1];
+    output[i][j] = arr[i][arr[0].length - j - 1];
   });
 
   return output;
