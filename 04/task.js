@@ -3,7 +3,7 @@ let fs = require('fs');
 let util = require('../util');
 
 // INPUT PROCESSING
-let data = fs.readFileSync(__dirname + '/input.txt', 'utf8');
+let data = fs.readFileSync(__dirname + '/input.txt', 'utf8').trim();
 let input = util.splitLines(data);
 
 let periods = [];
@@ -11,7 +11,6 @@ let curId;
 let cur;
 
 input
-  .filter(x => x)
   .sort()
   .map(x => /\[(\d+)-(\d+)-(\d+) (\d+):(\d+)\] (.*)/.exec(x))
   .map(x => {

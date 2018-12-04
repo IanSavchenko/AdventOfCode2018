@@ -4,7 +4,7 @@ let util = require('../util');
 
 // INPUT PROCESSING
 let data = fs.readFileSync(__dirname + '/input.txt', 'utf8');
-let _input = util.splitLines(data).map(val => Number(val));
+let _input = util.splitLines(data).map(val => Number(val)).trim();
 
 // PART 1
 let part1 = 0;
