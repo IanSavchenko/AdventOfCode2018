@@ -1,3 +1,5 @@
+let _ = require('lodash');
+
 let removeChar = function(str, pos, count = 1) {
   return str.slice(0, pos) + str.slice(pos + count);
 };
@@ -52,13 +54,58 @@ let arr2dForEach = (
   }
 };
 
+let maxAndIndex = function(arr, func = _.identity) {
+  let maxCalc = Number.MIN_SAFE_INTEGER;
+  let maxIdx;
+  let maxVal;
+
+  _.forEach(arr, function(val, idx) {
+    let calc = func(val);
+    if (calc > maxCalc) {
+      maxCalc = calc;
+      maxVal = val;
+      maxIdx = idx;
+    }
+  });
+
+  return {
+    value: maxVal,
+    index: maxIdx,
+    calc: maxCalc
+  };
+};
+
+
+let minAndIndex = function(arr, func = _.identity) {
+  let minCalc = Number.MAX_SAFE_INTEGER;
+  let minIdx;
+  let minVal;
+
+  _.forEach(arr, function(val, idx) {
+    let calc = func(val);
+    if (calc < minCalc) {
+      minCalc = calc;
+      minVal = val;
+      minIdx = idx;
+    }
+  });
+
+  return {
+    value: minVal,
+    index: minIdx,
+    calc: minCalc
+  };
+};
+
 module.exports = {
   removeChar,
   splitLines,
   arr2dInit,
   arr2dForEach,
   arr1dInit,
-  arr1dForEach
+  arr1dForEach,
+  maxAndIndex,
+  minAndIndex
 };
 
 // consider adding
