@@ -68,8 +68,10 @@ let downloadInput = async function({inputFilePath, day}) {
   fs.writeFileSync(inputFilePath, input.data, 'utf8');
 };
 
-let runTask = function({taskPath}) { 
+let runTask = function({taskPath}) {
+  console.time('Run time');
   require(taskPath); 
+  console.timeEnd('Run time');
 };
 
 let main = async function() {

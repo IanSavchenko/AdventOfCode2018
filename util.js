@@ -1,7 +1,7 @@
 let _ = require('lodash');
 
 let removeChar = function(str, pos, count = 1) {
-  return str.slice(0, pos) + str.slice(pos + count);
+  return str.substr(0, pos) + str.substr(pos + count);
 };
 
 let splitLines = function(str) {
