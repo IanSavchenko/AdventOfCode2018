@@ -15,12 +15,14 @@ let input = util.splitLines(data).map(val => {
 // PART 1
 let part1 = 0;
 
-let arr = util.arr2dInit(_.maxBy(input, t => t.x).x + 2, _.maxBy(input, t => t.y).y + 2, 0);
+let rows =  _.maxBy(input, t => t.x).x + 2;
+let cols = _.maxBy(input, 'y').y + 2;
+let arr = util.arr2dInit(rows, cols);
 
 let border = new Set([-1]);
-util.arr2dForEach(arr, function(val, x, y) {
-  let d = input.map(function({x: gx, y: gy}) {
-    return Math.abs(x - gx) + Math.abs(y - gy);
+util.arr2dForEach(arr, (val, x, y) => {
+  let d = input.map(({x: px, y: py}) => {
+    return Math.abs(x - px) + Math.abs(y - py);
   });
 
   let {
@@ -28,43 +30,35 @@ util.arr2dForEach(arr, function(val, x, y) {
     index: minIndex
   } = util.minAndIndex(d);
 
-  if (_.filter(d, x => x == minDist).length > 1) {
-    arr[x][y] = -1;
-  } else {
-    arr[x][y] = minIndex;
-  }
+  arr[x][y] = _.filter(d, x => x == minDist).length === 1 ? minIndex : -1;
 
-  if (x === 0 || y === 0 || x === arr.length - 1 || y === arr[0].length - 1) {
+  if (x === 0 || y === 0 || x === rows - 1 || y === cols - 1) {
     border.add(arr[x][y]);
   } 
 });
 
 let size = {};
-util.arr2dForEach(arr, function(val) {
+util.arr2dForEach(arr, (val) => {
   if (border.has(val)) {
     return;
   }
 
-  if (val in size) {
-    size[val]++;
-  } else {
-    size[val] = 1;
-  }
-
+  size[val] = val in size ? size[val] + 1 : 1;
   if (size[val] > part1) {
     part1 = size[val];
   }
 });
 
-console.log(`Part 1: ${part1}`); // 5532
+console.log(`Part 1: ${part1}`);
+console.assert(part1 === 5532);
 
 // PART 2
 let part2 = 0;
 
-util.arr2dForEach(arr, function(val, x, y) {
+util.arr2dForEach(arr, (val, x, y) => {
   let total = 0;
-  _.forEach(input, function({x: gx, y: gy}) {
-    total += Math.abs(x - gx) + Math.abs(y - gy);
+  _.forEach(input, ({x: px, y: py}) => {
+    total += Math.abs(x - px) + Math.abs(y - py);
   });
   
   if (total < 10000) {
@@ -72,4 +66,5 @@ util.arr2dForEach(arr, function(val, x, y) {
   }
 });
 
-console.log(`Part 2: ${part2}`); // 36216
+console.log(`Part 2: ${part2}`);
+console.assert(part2 === 36216);
