@@ -1,4 +1,5 @@
 let _ = require('lodash');
+let CircularList = require('./circular-list');
 
 let removeChar = function(str, pos, count = 1) {
   return str.substr(0, pos) + str.substr(pos + count);
@@ -105,7 +106,8 @@ module.exports = {
   arr1dInit,
   arr1dForEach,
   maxAndIndex,
-  minAndIndex
+  minAndIndex,
+  CircularList
 };
 
 // consider adding
