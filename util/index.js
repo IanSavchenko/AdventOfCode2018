@@ -18,6 +18,9 @@ let arr1dForEach = function(array,
   start = 0, 
   len = array.length) {
 
+  len = _.clamp(len, array.length);
+  start = _.clamp(len, 0, len);
+
   let stop;
   for (let i = start; i < len; i++) {
     stop = callback(array[i], i, array);
@@ -39,6 +42,11 @@ let arr2dForEach = (
   jStart = 0, 
   rows = array.length, 
   cols = array[0].length) => {
+
+  rows = _.clamp(rows, array.length);
+  cols = _.clamp(cols, array[0].length);
+  iStart = _.clamp(iStart, 0, rows);
+  jStart = _.clamp(jStart, 0, cols);
 
   let stop;
   for(let i = iStart; i < rows; i++) {

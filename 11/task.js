@@ -29,7 +29,7 @@ let maxSquare = (size) => {
     let sum = 0;
     util.arr2dForEach(arr, (val) => {
       sum += val;
-    }, x, y, _.clamp(x + size, w), _.clamp(y + size, h));
+    }, x, y, x + size, y + size);
   
     if (sum > max.val) {
       max = {
@@ -39,7 +39,7 @@ let maxSquare = (size) => {
         val: sum
       };
     }
-  });
+  }, 0, 0, w - size, h - size);
 
   return max;
 };
@@ -58,7 +58,7 @@ console.assert(part1 === '235,18');
 // PART 2
 let part2 = {val: 0};
 
-for (let size = 1; size <= 20; size++) {
+for (let size = 1; size <= 300; size++) {
   let cur = maxSquare(size);
   if (cur.val > part2.val) {
     part2 = cur;
