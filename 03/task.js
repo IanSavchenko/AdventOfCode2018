@@ -34,6 +34,7 @@ util.arr2dForEach(m, val => {
 });
 
 console.log(`Part 1: ${part1}`);
+console.assert(part1 === 109143);
 
 // PART 2
 let part2 = 0;
@@ -43,6 +44,7 @@ _.forEach(sqs, (sq) => {
   util.arr2dForEach(m, function(val) {
     if (val !== 1) {
       flag = false;
+      return false;
     }
   }, sq.x, sq.y, sq.x + sq.w, sq.y + sq.h);
 
@@ -52,3 +54,4 @@ _.forEach(sqs, (sq) => {
 }); 
 
 console.log(`Part 2: ${part2}`);
+console.assert(part2 === 506);

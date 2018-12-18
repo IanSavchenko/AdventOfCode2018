@@ -37,6 +37,7 @@ input.forEach(st => {
 part1 = two*three;
 
 console.log(`Part 1: ${part1}`);
+console.assert(part1 === 6888);
 
 // PART 2
 let part2;
@@ -55,3 +56,4 @@ input.forEach((st) => {
 });
 
 console.log(`Part 2: ${part2}`);
+console.assert(part2 === 'icxjvbrobtunlelzpdmfkahgs');
