@@ -16,7 +16,7 @@ process.addListener('uncaughtException', function(err) {
 });
 
 let resolveArgs = function() { 
-  let day = process.argv[2];
+  let day = +process.argv[2];
 
   if (!day) {
     let now = new Date();

@@ -10,7 +10,7 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceRoot}/index.js",
-            "internalConsoleOptions": "neverOpen",
+            "internalConsoleOptions": "openOnSessionStart",
             "console": "internalConsole"
         }
     ]
