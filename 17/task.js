@@ -93,7 +93,10 @@ let moveSides = function(x, y) {
       map[y][i] = '~';
     }
 
-    return [{x, y: y - 1}];
+    let toScan = _.range(xl, xr + 1)
+      .filter(x => map[y - 1][x] === '|')
+      .map(x => {return {x, y: y - 1};});
+    return toScan;
   }
 
   for (let i = xl; i <= xr; i++) {
@@ -123,10 +126,6 @@ while (q.length) {
   case('+'):
     q.push(...moveDown(x, y));
     break;
-  case('.'):
-    map[y][x] = '|';
-    q.push(...moveDown(x, y));
-    break;
   case('|'):
     q.push(...moveDown(x, y));
     break;
@@ -135,6 +134,8 @@ while (q.length) {
     break;
   case ('~'):
     break;
+  default: 
+    throw new Error();
   }
 }
 
