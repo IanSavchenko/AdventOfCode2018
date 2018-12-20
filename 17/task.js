@@ -33,7 +33,7 @@ util.splitLines(data).map(line => {
 
 map[0][500] = '+';
 
-// PART 1
+// PART 1+2
 let moveDown = function(x, y) {
   if (map[y + 1][x] === '.') {
     map[y + 1][x] = '|';
@@ -124,13 +124,8 @@ while (q.length) {
 
   switch(map[y][x]) {
   case('+'):
-    q.push(...moveDown(x, y));
-    break;
   case('|'):
     q.push(...moveDown(x, y));
-    break;
-  case('#'):
-    q.push(...moveSides(x, y));
     break;
   case ('~'):
     break;
@@ -140,6 +135,7 @@ while (q.length) {
 }
 
 let part1 = 0;
+let part2 = 0;
 
 util.arr2dForEach(map, (val, y) => {
   if (y > max || y < min) {
@@ -149,23 +145,14 @@ util.arr2dForEach(map, (val, y) => {
   if (val === '~' || val === '|') {
     part1++;
   }
-});
-
-console.log(`Part 1: ${part1}`);
-console.assert(part1 === 34379);
-
-// PART 2
-let part2 = 0;
-
-util.arr2dForEach(map, (val, y) => {
-  if (y > max || y < min) {
-    return;
-  }
 
   if (val === '~') {
     part2++;
   }
 });
+
+console.log(`Part 1: ${part1}`);
+console.assert(part1 === 34379);
 
 console.log(`Part 2: ${part2}`);
 console.assert(part2 === 28015);

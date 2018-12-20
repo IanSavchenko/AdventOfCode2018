@@ -57,6 +57,7 @@ let {
 let part1 = maxMinute * maxGuard;
 
 console.log(`Part 1: ${part1}`);
+console.assert(part1 === 125444);
 
 // PART 2
 let part2 = 0;
@@ -88,3 +89,4 @@ _.forEach(byGuards, function(times, guard) {
 part2 = globalMaxG*globalMaxMin;
 
 console.log(`Part 2: ${part2}`);
+console.assert(part2 === 18325);

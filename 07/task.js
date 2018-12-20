@@ -52,15 +52,14 @@ let t = 0;
 while(true) {
   finished.push(..._.remove(workers, x => x.t <= t).map(x => x.tgt));
   
-  let exec = getNext(_.difference(all, started), finished);
+  let toExec = getNext(_.difference(all, started), finished);
   if (!workers.length && finished.length === all.length) {
     break;
   } 
 
-  while (workers.length < 5 && exec.length > 0) {
-    let tgt = exec[0];
+  while (workers.length < 5 && toExec.length > 0) {
+    let tgt = toExec.shift();
     workers.push({tgt, t: t + (tgt.charCodeAt(0) - 'A'.charCodeAt(0)) + 61});
-    _.pull(exec, tgt);
     started.push(tgt);
   }
 

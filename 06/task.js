@@ -43,7 +43,12 @@ util.arr2dForEach(arr, (val) => {
     return;
   }
 
-  size[val] = val in size ? size[val] + 1 : 1;
+  if (val in size) {
+    size[val]++;
+  } else {
+    size[val] = 1;
+  }
+  
   if (size[val] > part1) {
     part1 = size[val];
   }

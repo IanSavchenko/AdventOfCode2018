@@ -50,7 +50,8 @@ let remove = function(s) {
 
 part1 = remove(data);
 
-console.log(`Part 1: ${part1}`); // 10972
+console.log(`Part 1: ${part1}`);
+console.assert(part1 === 10972);
 
 // PART 2
 let part2 = Number.MAX_SAFE_INTEGER;
@@ -63,4 +64,5 @@ for (let i = a; i <= z; i++) {
   part2 = Math.min(d, part2);
 }
 
-console.log(`Part 2: ${part2}`); // 5278
+console.log(`Part 2: ${part2}`);
+console.assert(part2 === 5278);

@@ -47,25 +47,24 @@ let part2 = 0;
 let crashed = new Set();
 
 while(true) {
-  cars = _.sortBy(cars, car => car.x + ' ' + car.y);
+  cars = _.sortBy(cars, 'x', 'y');
   
   _.forEach(cars, car => {
     if (crashed.has(car)) {
       return;
     }
 
-    let temp;
-    let col = _.find(cars, {
+    let collision = _.find(cars, {
       x: car.x + car.dx,
       y: car.y + car.dy
     });
 
-    if (col) {
+    if (collision) {
       if (!part1) {
-        part1 = `${col.x},${col.y}`;
+        part1 = `${collision.x},${collision.y}`;
       }
 
-      crashed.add(col);
+      crashed.add(collision);
       crashed.add(car);
       return;
     }
@@ -73,6 +72,7 @@ while(true) {
     car.x = car.x + car.dx;
     car.y = car.y + car.dy;
 
+    let temp;
     switch(inp[car.y][car.x]) {
     case('-'):
     case('|'):
