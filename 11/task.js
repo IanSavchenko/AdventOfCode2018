@@ -23,18 +23,36 @@ let calcSingle = (x, y) => {
   return power;
 };
 
+let arr = util.arr2dInit(w, h, 0);
+util.arr2dForEach(arr, (_val, x, y) => {
+  arr[x][y] = calcSingle(x + 1, y + 1);
+});
+
+let sums = util.arr2dInit(arr.length, arr[0].length);
+util.arr2dForEach(sums, function(_val, x, y) {
+  sums[x][y] = 
+    (x > 0 ? sums[x - 1][y] : 0) 
+    + (y > 0 ? sums[x][y - 1] : 0) 
+    - (x > 0 && y > 0 ? sums[x - 1][y - 1] : 0)
+    + arr[x][y];
+});
+
 let maxSquare = (size) => {
   let max = {val: 0};
   util.arr2dForEach(arr, (val, x, y) => {
-    let sum = 0;
-    util.arr2dForEach(arr, (val) => {
-      sum += val;
-    }, x, y, x + size, y + size);
-  
+    x--;
+    y--;
+
+    let sum = 
+      sums[x + size][y + size] 
+      - (x >= 0 ? sums[x][y + size] : 0) 
+      - (y >= 0 ? sums[x + size][y] : 0) 
+      + (x >= 0 && y >= 0 ? sums[x][y] : 0);
+
     if (sum > max.val) {
       max = {
-        x,
-        y,
+        x: x + 1,
+        y: y + 1,
         size,
         val: sum
       };
@@ -43,11 +61,6 @@ let maxSquare = (size) => {
 
   return max;
 };
-
-let arr = util.arr2dInit(w, h, 0);
-util.arr2dForEach(arr, (_val, x, y) => {
-  arr[x][y] = calcSingle(x + 1, y + 1);
-});
 
 part1 = maxSquare(3);
 part1 = `${part1.x + 1},${part1.y + 1}`;
