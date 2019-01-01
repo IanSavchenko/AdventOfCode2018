@@ -1,7 +1,6 @@
 let _ = require('lodash');
 let fs = require('fs');
 let util = require('../util');
-let Graph = require('node-dijkstra');
 
 // INPUT PROCESSING
 let data = fs.readFileSync(__dirname + '/input.txt', 'utf8').trim();
@@ -83,40 +82,74 @@ let getTools = function(type) {
   }
 };
 
-let graph = new Graph();
+let processedIds = new Set();
+let nodes = new Map();
 
-util.arr2dForEach(risk, (val, y, x) => {
-  let neighbours = [];
+let startNode = {
+  y: 0,
+  x: 0,
+  tool: 't',
+  id: '0 0 t',
+  dist: 0
+};
+nodes.set(startNode.id, startNode);
+
+let tgtId = `${tgt.x} ${tgt.y} t`;
+let q = [startNode];
+while (q.length) {
+  q.sort(function(a, b) {
+    return a.dist - b.dist;
+  });
+
+  let {
+    x,
+    y,
+    tool,
+    id,
+    dist
+  } = q.shift();
+
+  let tools = getTools(risk[y][x]);
   for(let d of dirs) {
-    let nx = x + d.x;
-    let ny = y + d.y;
-    if (nx < 0 || nx >= size.x || ny < 0 || ny >= size.y) {
+    let nX = x + d.x; // n - for "neighbour"
+    let nY = y + d.y;
+    if (nX < 0 || nX >= size.x || nY < 0 || nY >= size.y) {
       continue;
     }
 
-    neighbours.push({
-      x: nx,
-      y: ny
-    });
-  }
+    let nTools = getTools(risk[nY][nX]);
+    let allowedTools = _.intersection(tools, nTools); // tools we can switch to
+    for (let nTool of allowedTools) {
+      let nId = `${nX} ${nY} ${nTool}`;
+      if (processedIds.has(nId)) {
+        continue;
+      }
 
-  let tools = getTools(risk[y][x]);
-  for(let tool of tools) {
-    let routes = {};
-    for(let n of neighbours) {
-      let ntools = getTools(risk[n.y][n.x]);
-      let allowedTools = _.intersection(tools, ntools); // tools we can switch to
-      for (let ntool of allowedTools) {
-        routes[`${n.x} ${n.y} ${ntool}`] = ntool === tool ? 1 : 8;
+      let nNode = nodes.get(nId);
+      if (!nNode) {
+        nNode = {x: nX, y: nY, tool: nTool, id: nId, dist: Number.MAX_SAFE_INTEGER};
+        nodes.set(nId, nNode);
+        q.push(nNode);
+      }
+
+      let nDist = dist + (nTool === tool ? 1 : 8);
+      if (nDist <= nNode.dist) {
+        nNode.dist = nDist;
       }
     }
-
-    graph.addNode(`${x} ${y} ${tool}`, routes);
   }
-});
 
-let path = graph.path('0 0 t', `${tgt.x} ${tgt.y} t`, {cost: true});
-let part2 = path.cost;
+  processedIds.add(id);
+  if (id === tgtId) {
+    break;
+  }
+}
 
+let tgtNode = nodes.get(tgtId);
+if (!tgtNode) {
+  throw new Error('Target node not reached!');
+}
+
+let part2 = tgtNode.dist;
 console.log(`Part 2: ${part2}`);
 console.assert(part2 === 969);
